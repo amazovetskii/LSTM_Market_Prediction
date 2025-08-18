@@ -13,6 +13,24 @@ def get_next_filename(base_name, extension, directory="."):
                         return filepath
                 i += 1
 
+def plot_grad_flow(named_parameters):
+    ave_grads = []
+    layers = []
+    for n, p in named_parameters:
+        if p.requires_grad and p.grad is not None and "bias" not in n:
+            layers.append(n)
+            ave_grads.append(p.grad.abs().mean().item())
+    plt.plot(ave_grads, alpha=0.3, color="b")
+    plt.hlines(0, 0, len(ave_grads)+1, linewidth=1, color="k")
+    plt.xticks(range(0,len(ave_grads), 1), layers, rotation="vertical")
+    plt.xlim(left=0, right=len(ave_grads))
+    plt.ylim(bottom=0)
+    plt.xlabel("Layers")
+    plt.ylabel("Average Gradient")
+    plt.title("Gradient flow")
+    plt.grid(True)
+    plt.show()
+
 def plot_predictions(visualisation_set, predictions, save_to_examples = False):
         assert len(predictions) <= len(visualisation_set), \
                 "Predictions cannot be longer than visualisation_set"

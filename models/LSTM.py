@@ -1,9 +1,9 @@
 import torch.nn as nn
 import torch
 
-class CustomLSTM(nn.Module):
-    def __init__(self, input_size=5, hidden_size=128, num_layers=2, dropout=0.2, pred_days=5):
-        super(CustomLSTM, self).__init__()
+class LSTM(nn.Module):
+    def __init__(self, input_size=5, hidden_size=128, num_layers=2, dropout=0.2, pred_days=5, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.hidden_size = hidden_size
         self.num_layers = num_layers
 
