@@ -6,3 +6,4 @@ __pycache__
 artifacts
 datasets/dirty
 xLSTM
+model_weights.pt
