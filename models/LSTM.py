@@ -22,4 +22,5 @@ class LSTM(nn.Module):
         out, _ = self.lstm(x)                # out: [batch, seq_len, hidden]
         last_hidden = out[:, -1, :]          # take last time step: [batch, hidden]
         preds = self.fc(last_hidden)         # [batch, pred_days]
+        preds = preds.unsqueeze(-1)
         return preds

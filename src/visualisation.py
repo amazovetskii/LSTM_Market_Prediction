@@ -13,6 +13,16 @@ def get_next_filename(base_name, extension, directory="."):
                         return filepath
                 i += 1
 
+def plot_losses(train_losses, test_losses):
+    plt.plot(train_losses, label="Train Loss")
+    plt.plot(test_losses, label="Test Loss")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.title("Training vs Test Loss")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
 def plot_grad_flow(named_parameters):
     ave_grads = []
     layers = []

@@ -8,7 +8,7 @@ You can check out the latest examples in the respective directory
 ## Key insights and my notes:
 <ul>
     <li>
-    Transformers often perform worse than expected, even a simple lstm can outperform it. 
+    Transformers can perform worse than expected, even a simple lstm can outperform it. 
     In fact vanishing gradient problem can be encountered, especially on encoder part, see transformer_gradients in reports/images
     </li>
 </ul>
