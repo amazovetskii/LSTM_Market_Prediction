@@ -1,8 +1,9 @@
 import torch
 from src import visualisation as vis
-import logging
 import sys
+import logging
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
 
 class Testing:
     def __init__(self, model, device):
@@ -19,11 +20,14 @@ class Testing:
 
             self.model.eval()
             with torch.no_grad():
-                outputs = self.model(context).cpu().numpy()[0, :].reshape(-1, 1)
+                outputs = self.model(context).cpu().numpy()[0]
 
             vis_column_scaled = visualisation_set[:, list(scalers.keys()).index(column_name)].reshape(-1, 1)
-            vis_close = scalers[column_name].inverse_transform(vis_column_scaled).squeeze()
+            vis_column = scalers[column_name].inverse_transform(vis_column_scaled).squeeze()
 
-            pred_close = scalers[column_name].inverse_transform(outputs).squeeze()
+            if outputs.shape == (1, 1):
+                pred_close = scalers[column_name].inverse_transform(outputs)[0]
+            else:
+                pred_close = scalers[column_name].inverse_transform(outputs).squeeze()
 
-            vis.plot_predictions(vis_close, pred_close, save_to_examples=False)
+            vis.plot_predictions(vis_column, pred_close, save_to_examples=False)

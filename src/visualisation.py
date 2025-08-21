@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import os
+import sys
+import logging
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
 def get_next_filename(base_name, extension, directory="."):
