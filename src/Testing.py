@@ -3,15 +3,16 @@ from src import visualisation as vis
 import sys
 import logging
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
-
+from matplotlib.backends.backend_pdf import PdfPages
 
 class Testing:
     def __init__(self, model, device):
         self.device = device
         self.model = model
 
-    def get_n_last_prediction_windows(self, data_np, n_images, lookback_days, future_days, scalers, column_name):
+    def get_n_last_prediction_windows(self, data_np, n_images, lookback_days, future_days, scalers, column_name, save_to_examples=False):
         window_size = lookback_days + future_days
+
         for n in range(1, n_images + 1):
             end_of_window = -window_size * (n - 1)
             visualisation_set = data_np[-window_size * n:None if end_of_window == 0 else end_of_window]
@@ -30,4 +31,4 @@ class Testing:
             else:
                 pred_close = scalers[column_name].inverse_transform(outputs).squeeze()
 
-            vis.plot_predictions(vis_column, pred_close, save_to_examples=False)
+            vis.plot_predictions(vis_column, pred_close, save_to_examples=save_to_examples)
